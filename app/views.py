@@ -9,7 +9,7 @@ def index():
 def login():
     return redirect(url_for('show_posts'))
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['POST'])
 def signup():
     return redirect(url_for('show_posts'))
 
