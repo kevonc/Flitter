@@ -7,16 +7,16 @@
     <div class="col-md-6">
       <div class="form login">
         <form action="{{ url_for('login') }}" method=post>
-          <input type=text name=username>
-          <input type=text name=password>
+          <input type=text name=username placeholder=Username>
+          <input type=text name=password placeholder=Password>
           <input type=submit value=Login>
         </form>
       </div>
       <div class="form signup">
         <form action="{{ url_for('signup') }}" method=post>
-          <input type=text name=fullname>
-          <input type=text name=username>
-          <input type=text name=password>
+          <input type=text name=fullname placeholder='Full Name'>
+          <input type=text name=email placeholder=Email>
+          <input type=text name=password placeholder=Password>
           <input type=submit value='Sign Up'>
         </form>
     </div>

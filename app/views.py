@@ -1,5 +1,7 @@
-from flask import render_template, redirect
+import sqlite3
+from flask import render_template, redirect, url_for, request, g
 from app import app
+from models import User
 
 @app.route('/')
 def index():
@@ -11,6 +13,12 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    fullname = request.form['fullname']
+    email = request.form['email']
+    password = request.form['password']
+    u = models.User(fullname='kevin', email='kc@gmail.com', password=1234)
+    db.session.add(u)
+    db.session.commit()
     return redirect(url_for('show_posts'))
 
 @app.route('/flitter')
