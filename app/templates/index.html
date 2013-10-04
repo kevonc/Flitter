@@ -6,18 +6,34 @@
     </div>
     <div class="col-md-6">
       <div class="form login">
-        <form action="{{ url_for('login') }}" method=post>
-          <input type=text name=username placeholder=Username>
-          <input type=text name=password placeholder=Password>
-          <input type=submit value=Login>
+        <form action="{{ url_for('signin') }}" method=post>
+          {{ signinform.email.label }}
+          {{ signinform.email }}
+          <br>
+
+          {{ signinform.password.label }}
+          {{ signinform.password }}
+          <br>
+
+          {{ signinform.submit }}
         </form>
       </div>
       <div class="form signup">
         <form action="{{ url_for('signup') }}" method=post>
-          <input type=text name=fullname placeholder='Full Name'>
-          <input type=text name=email placeholder=Email>
-          <input type=text name=password placeholder=Password>
-          <input type=submit value='Sign Up'>
+
+          {{ signupform.fullname.label }}
+          {{ signupform.fullname }}
+          <br>
+
+          {{ signupform.email.label }}
+          {{ signupform.email }}
+          <br>
+
+          {{ signupform.password.label }}
+          {{ signupform.password }}
+          <br>
+
+          {{ signupform.submit }}
         </form>
     </div>
   </div>
