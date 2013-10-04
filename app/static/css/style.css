@@ -1,0 +1,17 @@
+/* Bootstrap Hack */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Universal */
+body {
+  background-color: #ededed;
+}
+
+.brand {
+  font-size: 3em;
+  margin-left: 16px;
+}
+
+/* Views */

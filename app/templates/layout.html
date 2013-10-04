@@ -1,0 +1,25 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Flitter</title>
+    {% else %}
+    <title>Flitter</title>
+    {% endif %}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-12">
+        <header>
+          <nav>
+            <a class="brand" href="/">Flitter</a>
+          </nav>
+        </header>
+        <div id="master">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
