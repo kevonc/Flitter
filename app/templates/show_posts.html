@@ -24,7 +24,7 @@
         <div class="post-item">
           <div class="row">
             <div class="col-md-3">
-              <h4>{{ post.author.username }}</h4><span class="time">{{ post.timestamp }}</span>
+              <h4>{{ post.author.username }}</h4><span class="time">{{ post.timestamp.strftime("%Y.%m.%d %H:%M %p") }}</span>
             </div>
             <div class="col-md-9">
               <p>{{ post.content }}</p>
