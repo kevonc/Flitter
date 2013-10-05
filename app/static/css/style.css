@@ -10,6 +10,10 @@ body {
   color: #3d3d3d;
 }
 
+#master {
+  padding: 0 30px;
+}
+
 nav {
   margin-top: 14px;
 }
@@ -24,13 +28,14 @@ nav {
   float: right;
 }
 
-#master {
-  padding: 0 30px;
-}
 
 /* Index */
-.welcome h1 {
-  font-size: 6em;
+.welcome {
+  margin-bottom: 300px;
+}
+
+.welcome h2 {
+  font-size: 4em;
   color: #c5c5c5;
 }
 
@@ -63,6 +68,7 @@ nav {
   width: 100%;
   overflow: auto;
   padding-bottom: 20px;
+  text-align: right;
 }
 
 .post-item {

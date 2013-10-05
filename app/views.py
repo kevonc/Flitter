@@ -12,6 +12,7 @@ def index():
     signupform = SignupForm()
     signinform = SigninForm()
 
+    # if user is logged in, skip index page
     if 'username' in session:
         return redirect(url_for('show_posts'))
     else:
@@ -27,10 +28,12 @@ def signup():
         input_username = signupform.username.data
         input_password = signupform.password.data
         if input_fullname and input_username and input_password:
+            # create new user object
             newuser = models.User(fullname=input_fullname, username=input_username, password=input_password)
             db.session.add(newuser)
             db.session.commit()
 
+            # login registered user
             session['username'] = newuser.username
             flash("Thanks for signing up. Now create your first post!")
             return redirect(url_for('index'))
@@ -55,14 +58,13 @@ def signin():
 
 @app.route('/logout')
 def logout():
-    if 'username' not in session:
-        return redirect(url_for('index'))
     session.pop('username', None)
     return redirect(url_for('index'))
 
 @app.route('/flitter')
 @app.route('/flitter/<int:page>')
 def show_posts(page = 1):
+    # if user is not logged in, force index page
     if 'username' not in session:
         return redirect(url_for('index'))
     username = session['username']
@@ -70,7 +72,7 @@ def show_posts(page = 1):
 
     # Sorting posts from newest to oldest using timestamp
     posts = user.posts.order_by(models.Post.timestamp.desc()).paginate(page, 10, False)
-    return render_template('show_posts.html', title = "%s's Posts" % user.fullname, user=user, posts=posts)
+    return render_template('show_posts.html', title = "%s's Posts" % user.fullname, current_user= None, user=user, posts=posts)
 
 @app.route('/flitter/new', methods=['GET', 'POST'])
 def new_post():
@@ -96,4 +98,11 @@ def new_post():
 def user_posts(username = None, page = 1):
     user = models.User.query.filter_by(username=username).first()
     posts = user.posts.order_by(models.Post.timestamp.desc()).paginate(page, 10, False)
-    return render_template('show_posts.html', title = 'Home', user=user, posts=posts)
+
+    if 'username' not in session:
+        current_user = None
+    else:
+        current_username = session['username']
+        current_user = models.User.query.filter_by(username=current_username).first()
+
+    return render_template('show_posts.html', title = 'Home', current_user=current_user, user=user, posts=posts)

@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="new-post">
-        <h1>Create New Post</h1>
-        <form action="{{ url_for('new_post') }}" method=post>
-          {{ newpostform.content(placeholder="Type here ...", class="content-box") }}
-          <div id="message"></div>
-          {{ newpostform.submit(id="newPostBtn", class="btn button") }}
-        </form>
-    </div>
+  <div class="new-post">
+    <h1>Create New Post</h1>
+    <form action="{{ url_for('new_post') }}" method=post>
+      {{ newpostform.content(placeholder="Type here ...", class="content-box") }}
+      <div id="message"></div>
+      {{ newpostform.submit(id="newPostBtn", class="btn button") }}
+    </form>
+  </div>
 {% endblock %}

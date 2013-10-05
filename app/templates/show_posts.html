@@ -1,26 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="row">
-      <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="menu">
         {% if 'username' in session and user.username == session['username'] %}
-          <div class="menu">
-            <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
-          </div>
+          <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
+        {% else %}
+          <h4 class="pull-right">You're viewing {{ user.fullname }}'s wall</h4>
         {% endif %}
+      </div>
 
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-success">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
-        {% if user.username != session['username'] %}
-          <div class="menu"><h4 class="pull-right">You're viewing {{ user.fullname }}'s wall</h4></div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+          {% endfor %}
         {% endif %}
+      {% endwith %}
 
-        {% for post in posts.items %}
+      {% for post in posts.items %}
         <div class="post-item">
           <div class="row">
             <div class="col-md-3">
@@ -31,31 +29,32 @@
             </div>
           </div>
         </div>
-        {% endfor %}
-        <div class="pagination">
-          {% if posts.has_prev %}
-            {% if 'username' in session and user.username == session['username'] %}
-              <a href="{{ url_for('show_posts', page = posts.prev_num) }}">
-            {% else %}
-              <a href="{{ url_for('user_posts', page = posts.prev_num, username = user.username) }}">
-            {% endif %}
-              << Newer posts
-            </a>
+      {% endfor %}
+
+      <div class="pagination">
+        {% if posts.has_prev %}
+          {% if 'username' in session and user.username == session['username'] %}
+            <a href="{{ url_for('show_posts', page = posts.prev_num) }}">
           {% else %}
-            << Newer posts
-          {% endif %} |
-          {% if posts.has_next %}
-            {% if 'username' in session and user.username == session['username'] %}
-              <a href="{{ url_for('show_posts', page = posts.next_num) }}">
-            {% else %}
-              <a href="{{ url_for('user_posts', page = posts.next_num, username = user.username) }}">
-            {% endif %}
-              Older posts >>
-            </a>
-          {% else %}
-            Older posts >>
+            <a href="{{ url_for('user_posts', page = posts.prev_num, username = user.username) }}">
           {% endif %}
-        </div>
+            << Newer posts
+          </a>
+        {% else %}
+          << Newer posts
+        {% endif %} |
+        {% if posts.has_next %}
+          {% if 'username' in session and user.username == session['username'] %}
+            <a href="{{ url_for('show_posts', page = posts.next_num) }}">
+          {% else %}
+            <a href="{{ url_for('user_posts', page = posts.next_num, username = user.username) }}">
+          {% endif %}
+            Older posts >>
+          </a>
+        {% else %}
+          Older posts >>
+        {% endif %}
       </div>
     </div>
+  </div>
 {% endblock %}

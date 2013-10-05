@@ -1,0 +1,21 @@
+== Flitter Simple Python App
+
+My first Python Application
+
+** Spec
+- Flask
+- Sqlite3
+- SQLAlchemy
+- WTForms
+- Werkzeug
+
+** Functionalities
+- Simple sign up and login
+- Create and view posts
+- View other user's post by visiting http://fm-flitter.herokuapp.com/flitter/kevonc (replace kevonc for any valid username)
+
+** To clone and play with
+- Run 'python db_create.py' to create the database
+- Run 'python db_migrate.py' to migrate changes
+- Run 'python run.py' to run the local server
+- That's it!
