@@ -45,7 +45,7 @@ def signin():
         input_email = signinform.email.data
         input_password = signinform.password.data
         user = models.User.query.filter_by(email=input_email).first()
-        if user and user.password == input_password:
+        if user and user.check_password(input_password):
             print user.email
             session['email'] = input_email
             return redirect(url_for('show_posts'))
