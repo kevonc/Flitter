@@ -7,13 +7,19 @@
             <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
           </div>
         {% endif %}
-          {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              {% for message in messages %}
-                <div class="alert alert-success">{{ message }}</div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% if user.username != session['username'] %}
+          <div class="menu"><h4 class="pull-right">You're viewing {{ user.fullname }}'s wall</h4></div>
+        {% endif %}
+
         {% for post in posts.items %}
         <div class="post-item">
           <div class="row">
