@@ -14,6 +14,11 @@
         <header>
           <nav>
             <a class="brand" href="/">Flitter</a>
+            {% if 'email' in session %}
+              Username (<a href="{{ url_for('logout') }}">Log out</a>)
+            {% else %}
+              Not in session now
+            {% endif %}
           </nav>
         </header>
         <div id="master">

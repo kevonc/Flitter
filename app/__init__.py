@@ -7,4 +7,5 @@ db = SQLAlchemy(app)
 
 from app import views, models
 from models import db
+db.app = app
 db.init_app(app)
