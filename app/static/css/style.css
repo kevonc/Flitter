@@ -16,14 +16,49 @@ nav {
 
 .brand {
   font-size: 3em;
-  margin-left: 30px;
+  margin-left: 44px;
 }
 
 .user-nav {
-  margin-right: 14px;
+  margin: 12px 44px 0 0;
+  float: right;
 }
 
-/* Views */
+#master {
+  padding: 0 30px;
+}
+
+/* Index */
+.welcome h1 {
+  font-size: 6em;
+  color: #c5c5c5;
+}
+
+.form {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.form input[type=text], .form input[type=password] {
+  width: 100%;
+}
+
+/* Form */
+.input-box {
+  height: 50px;
+  margin: 6px 0;
+  padding: 0 20px;
+  font-size: 1.2em;
+}
+
+.button {
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+/* Posts */
 .menu {
   width: 100%;
   overflow: auto;
@@ -44,4 +79,18 @@ nav {
 .post-item .time {
   font-size: 0.9em;
   font-style: italic;
+}
+
+/* New Post */
+.new-post {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.content-box {
+  width: 100%;
+  min-height: 200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  font-size: 1.2em;
 }

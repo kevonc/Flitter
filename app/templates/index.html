@@ -2,39 +2,26 @@
 {% block content %}
   <div class="row">
     <div class="col-md-6">
-      <h1>"Welcome to Flitter"</h1>
+      <div class="welcome">
+        <h1>"Welcome to Flitter"</h1>
+      </div>
     </div>
     <div class="col-md-6">
-      <div class="form login">
+      <div class="form">
         <form action="{{ url_for('signin') }}" method=post>
-          {{ signinform.email.label }}
-          {{ signinform.email }}
-          <br>
-
-          {{ signinform.password.label }}
-          {{ signinform.password }}
-          <br>
-
-          {{ signinform.submit }}
+          {{ signinform.email(placeholder="Email", class="input-box") }}
+          {{ signinform.password(placeholder="Password", class="input-box") }}
+          {{ signinform.submit(class="btn button") }}
         </form>
       </div>
-      <div class="form signup">
+      <div class="form">
         <form action="{{ url_for('signup') }}" method=post>
-
-          {{ signupform.fullname.label }}
-          {{ signupform.fullname }}
-          <br>
-
-          {{ signupform.email.label }}
-          {{ signupform.email }}
-          <br>
-
-          {{ signupform.password.label }}
-          {{ signupform.password }}
-          <br>
-
-          {{ signupform.submit }}
+          {{ signupform.fullname(placeholder="Full Name", class="input-box") }}
+          {{ signupform.email(placeholder="Email", class="input-box") }}
+          {{ signupform.password(placeholder="Password", class="input-box") }}
+          {{ signupform.submit(class="btn button") }}
         </form>
+      </div>
     </div>
   </div>
 {% endblock %}

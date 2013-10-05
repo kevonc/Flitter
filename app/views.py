@@ -23,13 +23,18 @@ def signup():
     signinform = SigninForm()
 
     if request.method == 'POST':
-        print 'work'
-        newuser = models.User(fullname=signupform.fullname.data, email=signupform.email.data, password=signupform.password.data)
-        db.session.add(newuser)
-        db.session.commit()
+        input_fullname = signupform.fullname.data
+        input_email = signupform.email.data
+        input_password = signupform.password.data
+        if input_fullname and input_email and input_password:
+            newuser = models.User(fullname=input_fullname, email=input_email, password=input_password)
+            db.session.add(newuser)
+            db.session.commit()
 
-        session['email'] = newuser.email
-        return redirect(url_for('index'))
+            session['email'] = newuser.email
+            return redirect(url_for('index'))
+        else:
+            return render_template('index.html', signupform=signupform, signinform=signinform)
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -81,7 +86,7 @@ def new_post():
         user = models.User.query.filter_by(email=email).first()
         return render_template('new_post.html', newpostform=newpostform, user=user)
 
-@app.route('/flitter/user/<username>')
+@app.route('/flitter/<username>')
 def user_posts(username=None):
     # will have to change to username later
     user = models.User.query.filter_by(fullname=username).first()
