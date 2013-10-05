@@ -36,9 +36,15 @@ def signin():
     signinform = SigninForm()
 
     if request.method == 'POST':
-        # user = models.User.get(email=signinform.email.data)
-        session['email'] = signinform.email.data
-        return redirect(url_for('show_posts'))
+        input_email = signinform.email.data
+        input_password = signinform.password.data
+        user = models.User.query.filter_by(email=input_email).first()
+        if user and user.password == input_password:
+          print user.email
+          session['email'] = input_email
+          return redirect(url_for('show_posts'))
+        else:
+          return render_template('index.html', signupform=signupform, signinform=signinform)
 
 @app.route('/logout')
 def logout():
