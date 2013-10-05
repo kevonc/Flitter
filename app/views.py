@@ -65,7 +65,9 @@ def show_posts():
         return redirect(url_for('index'))
     email = session['email']
     user = models.User.query.filter_by(email=email).first()
-    posts = user.posts.all()
+
+    # Sorting posts from newest to oldest using timestamp
+    posts = user.posts.order_by(models.Post.timestamp.desc())
     return render_template('show_posts.html', title = "%s's Posts" % user.fullname, user=user, posts=posts)
 
 @app.route('/flitter/new', methods=['GET', 'POST'])
