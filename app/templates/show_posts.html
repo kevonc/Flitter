@@ -2,9 +2,11 @@
 {% block content %}
     <div class="row">
       <div class="col-md-12">
-        <div class="menu">
-          <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
-        </div>
+        {% if 'username' in session and user.username == session['username'] %}
+          <div class="menu">
+            <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
+          </div>
+        {% endif %}
         {% for post in posts %}
         <div class="post-item">
           <div class="row">

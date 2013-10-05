@@ -90,6 +90,6 @@ def new_post():
 @app.route('/flitter/<username>')
 def user_posts(username=None):
     # will have to change to username later
-    user = models.User.query.filter_by(fullname=username).first()
+    user = models.User.query.filter_by(username=username).first()
     posts = user.posts.all()
     return render_template('show_posts.html', title = 'Home', user=user, posts=posts)

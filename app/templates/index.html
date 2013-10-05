@@ -17,7 +17,7 @@
       <div class="form">
         <form action="{{ url_for('signup') }}" method=post>
           {{ signupform.fullname(placeholder="Full Name", class="input-box") }}
-          {{ signupform.username(placeholder="Username", class="input-box") }}
+          {{ signupform.username(placeholder="Username (all lowercase)", class="input-box") }}
           {{ signupform.password(placeholder="Password", class="input-box") }}
           {{ signupform.submit(class="btn button") }}
         </form>
