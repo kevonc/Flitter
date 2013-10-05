@@ -56,6 +56,8 @@ def logout():
 
 @app.route('/flitter')
 def show_posts():
+    if 'email' not in session:
+        return redirect(url_for('index'))
     email = session['email']
     user = models.User.query.filter_by(email=email).first()
     posts = user.posts.all()
@@ -79,7 +81,7 @@ def new_post():
         user = models.User.query.filter_by(email=email).first()
         return render_template('new_post.html', newpostform=newpostform, user=user)
 
-@app.route('/user/<username>')
+@app.route('/flitter/user/<username>')
 def user_posts(username=None):
     # will have to change to username later
     user = models.User.query.filter_by(fullname=username).first()

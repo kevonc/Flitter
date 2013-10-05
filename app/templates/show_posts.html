@@ -2,13 +2,20 @@
 {% block content %}
     <div class="row">
       <div class="col-md-12">
-        <div>
-          <a href="{{ url_for('new_post') }}" class="btn btn-primary">Create New Post</a>
+        <div class="menu">
+          <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
         </div>
-        <h1>Hello, {{ user.fullname }}</h1>
         {% for post in posts %}
-        <p>{{ post.author.email }} says: <b>{{ post.content }}</b></p>
-        <p>{{ post.timestamp }}</p>
+        <div class="post-item">
+          <div class="row">
+            <div class="col-md-3">
+              <h4>{{ post.author.email }}</h4><span class="time">{{ post.timestamp }}</span>
+            </div>
+            <div class="col-md-9">
+              <p>{{ post.content }}</p>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
     </div>

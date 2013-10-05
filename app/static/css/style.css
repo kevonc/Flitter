@@ -7,11 +7,41 @@
 /* Universal */
 body {
   background-color: #ededed;
+  color: #3d3d3d;
+}
+
+nav {
+  margin-top: 14px;
 }
 
 .brand {
   font-size: 3em;
-  margin-left: 16px;
+  margin-left: 30px;
+}
+
+.user-nav {
+  margin-right: 14px;
 }
 
 /* Views */
+.menu {
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 20px;
+}
+
+.post-item {
+  min-height: 80px;
+  border-top: 1px solid #d3d3d3;
+  padding: 14px 0;
+}
+
+.post-item h4 {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.post-item .time {
+  font-size: 0.9em;
+  font-style: italic;
+}
