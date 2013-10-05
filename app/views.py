@@ -32,6 +32,7 @@ def signup():
             db.session.commit()
 
             session['username'] = newuser.username
+            flash("Thanks for signing up. Now create your first post!")
             return redirect(url_for('index'))
         else:
             return render_template('index.html', signupform=signupform, signinform=signinform)
@@ -47,6 +48,7 @@ def signin():
         user = models.User.query.filter_by(username=input_username).first()
         if user and user.check_password(input_password):
             session['username'] = input_username
+            flash("You've logged in!")
             return redirect(url_for('show_posts'))
         else:
             return render_template('index.html', signupform=signupform, signinform=signinform)
@@ -81,6 +83,7 @@ def new_post():
         newpost = models.Post(content=content, timestamp=now, author=user)
         db.session.add(newpost)
         db.session.commit()
+        flash("You've added a new post. Good job, keep it up!")
         return redirect(url_for('show_posts'))
     else:
         username = session['username']

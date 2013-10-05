@@ -7,6 +7,13 @@
             <a href="{{ url_for('new_post') }}" class="btn btn-primary pull-right">Create New Post</a>
           </div>
         {% endif %}
+           {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+               {% endwith %}
         {% for post in posts %}
         <div class="post-item">
           <div class="row">
