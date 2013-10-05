@@ -105,4 +105,4 @@ def user_posts(username = None, page = 1):
         current_username = session['username']
         current_user = models.User.query.filter_by(username=current_username).first()
 
-    return render_template('show_posts.html', title = 'Home', current_user=current_user, user=user, posts=posts)
+    return render_template('show_posts.html', title = "%s's Posts" % user.fullname, current_user=current_user, user=user, posts=posts)
