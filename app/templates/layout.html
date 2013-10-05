@@ -17,7 +17,7 @@
           <nav>
             <a class="brand" href="/">Flitter</a>
             <div class="user-nav">
-              {% if 'email' in session %}
+              {% if 'username' in session %}
                 <h4>{{ user.fullname }} ( <a href="{{ url_for('logout') }}">Log out</a> )</h4>
               {% endif %}
             </div>

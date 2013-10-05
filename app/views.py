@@ -12,7 +12,7 @@ def index():
     signupform = SignupForm()
     signinform = SigninForm()
 
-    if 'email' in session:
+    if 'username' in session:
         return redirect(url_for('show_posts'))
     else:
         return render_template('index.html', signupform=signupform, signinform=signinform)
@@ -24,14 +24,14 @@ def signup():
 
     if request.method == 'POST':
         input_fullname = signupform.fullname.data
-        input_email = signupform.email.data
+        input_username = signupform.username.data
         input_password = signupform.password.data
-        if input_fullname and input_email and input_password:
-            newuser = models.User(fullname=input_fullname, email=input_email, password=input_password)
+        if input_fullname and input_username and input_password:
+            newuser = models.User(fullname=input_fullname, username=input_username, password=input_password)
             db.session.add(newuser)
             db.session.commit()
 
-            session['email'] = newuser.email
+            session['username'] = newuser.username
             return redirect(url_for('index'))
         else:
             return render_template('index.html', signupform=signupform, signinform=signinform)
@@ -42,29 +42,28 @@ def signin():
     signinform = SigninForm()
 
     if request.method == 'POST':
-        input_email = signinform.email.data
+        input_username = signinform.username.data
         input_password = signinform.password.data
-        user = models.User.query.filter_by(email=input_email).first()
+        user = models.User.query.filter_by(username=input_username).first()
         if user and user.check_password(input_password):
-            print user.email
-            session['email'] = input_email
+            session['username'] = input_username
             return redirect(url_for('show_posts'))
         else:
             return render_template('index.html', signupform=signupform, signinform=signinform)
 
 @app.route('/logout')
 def logout():
-    if 'email' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
-    session.pop('email', None)
+    session.pop('username', None)
     return redirect(url_for('index'))
 
 @app.route('/flitter')
 def show_posts():
-    if 'email' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
-    email = session['email']
-    user = models.User.query.filter_by(email=email).first()
+    username = session['username']
+    user = models.User.query.filter_by(username=username).first()
 
     # Sorting posts from newest to oldest using timestamp
     posts = user.posts.order_by(models.Post.timestamp.desc())
@@ -75,8 +74,8 @@ def new_post():
     newpostform = NewPost()
 
     if request.method == 'POST':
-        email = session['email']
-        user = models.User.query.filter_by(email=email).first()
+        username = session['username']
+        user = models.User.query.filter_by(username=username).first()
         content = newpostform.content.data
         now = datetime.datetime.now()
         newpost = models.Post(content=content, timestamp=now, author=user)
@@ -84,8 +83,8 @@ def new_post():
         db.session.commit()
         return redirect(url_for('show_posts'))
     else:
-        email = session['email']
-        user = models.User.query.filter_by(email=email).first()
+        username = session['username']
+        user = models.User.query.filter_by(username=username).first()
         return render_template('new_post.html', newpostform=newpostform, user=user)
 
 @app.route('/flitter/<username>')

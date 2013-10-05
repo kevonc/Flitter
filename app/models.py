@@ -8,13 +8,13 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     fullname = db.Column(db.String(64), unique = True)
-    email = db.Column(db.String(120), unique = True)
+    username = db.Column(db.String(64), unique = True)
     password = db.Column(db.String(64))
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
-    def __init__(self, fullname, email, password):
+    def __init__(self, fullname, username, password):
       self.fullname = fullname.title()
-      self.email = email.lower()
+      self.username = username.lower()
       self.set_password(password)
 
     def set_password(self, password):
