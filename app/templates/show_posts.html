@@ -5,9 +5,10 @@
         <div>
           <a href="{{ url_for('new_post') }}" class="btn btn-primary">Create New Post</a>
         </div>
-        <h1>Hello, {{ user.nickname }}</h1>
+        <h1>Hello, {{ user.fullname }}</h1>
         {% for post in posts %}
-        <p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p>
+        <p>{{ post.author.fullname }} says: <b>{{ post.content }}</b></p>
+        <p>{{ post.timestamp }}</p>
         {% endfor %}
       </div>
     </div>

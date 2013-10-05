@@ -12,23 +12,23 @@ def index():
     signinform = SigninForm()
 
     if 'email' in session:
-      return redirect(url_for('show_posts'))
+        return redirect(url_for('show_posts'))
     else:
-      return render_template('index.html', signupform=signupform, signinform=signinform)
+        return render_template('index.html', signupform=signupform, signinform=signinform)
 
 @app.route('/signup', methods=['POST'])
 def signup():
-  signupform = SignupForm()
-  signinform = SigninForm()
+    signupform = SignupForm()
+    signinform = SigninForm()
 
-  if request.method == 'POST':
-    print 'work'
-    newuser = models.User(fullname=signupform.fullname.data, email=signupform.email.data, password=signupform.password.data)
-    db.session.add(newuser)
-    db.session.commit()
+    if request.method == 'POST':
+        print 'work'
+        newuser = models.User(fullname=signupform.fullname.data, email=signupform.email.data, password=signupform.password.data)
+        db.session.add(newuser)
+        db.session.commit()
 
-    session['email'] = newuser.email
-    return redirect(url_for('index'))
+        session['email'] = newuser.email
+        return redirect(url_for('index'))
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -40,11 +40,11 @@ def signin():
         input_password = signinform.password.data
         user = models.User.query.filter_by(email=input_email).first()
         if user and user.password == input_password:
-          print user.email
-          session['email'] = input_email
-          return redirect(url_for('show_posts'))
+            print user.email
+            session['email'] = input_email
+            return redirect(url_for('show_posts'))
         else:
-          return render_template('index.html', signupform=signupform, signinform=signinform)
+            return render_template('index.html', signupform=signupform, signinform=signinform)
 
 @app.route('/logout')
 def logout():
@@ -55,22 +55,16 @@ def logout():
 
 @app.route('/flitter')
 def show_posts():
-    user = { 'nickname': 'Miguel' }
-    posts = [
-        {
-            'author': { 'nickname': 'John' },
-            'body': 'Beautiful day in Seattle!'
-        },
-        {
-            'author': { 'nickname': 'Susan' },
-            'body': 'Beautiful day in Boston!'
-        }
-    ]
-    return render_template('show_posts.html', title = 'Home', user=user, posts=posts)
+    email = session['email']
+    user = models.User.query.filter_by(email=email).first()
+    posts = user.posts.all()
+    return render_template('show_posts.html', title = "%s's Posts" % user.fullname, user=user, posts=posts)
 
 @app.route('/flitter/new', methods=['GET', 'POST'])
 def new_post():
-    return render_template('new_post.html')
+    email = session['email']
+    user = models.User.query.filter_by(email=email).first()
+    return render_template('new_post.html', user=user)
 
 @app.route('/user/<username>')
 def user_posts(username=None):
