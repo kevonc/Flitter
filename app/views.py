@@ -61,14 +61,15 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/flitter')
-def show_posts():
+@app.route('/flitter/<int:page>')
+def show_posts(page = 1):
     if 'username' not in session:
         return redirect(url_for('index'))
     username = session['username']
     user = models.User.query.filter_by(username=username).first()
 
     # Sorting posts from newest to oldest using timestamp
-    posts = user.posts.order_by(models.Post.timestamp.desc())
+    posts = user.posts.order_by(models.Post.timestamp.desc()).paginate(page, 10, False)
     return render_template('show_posts.html', title = "%s's Posts" % user.fullname, user=user, posts=posts)
 
 @app.route('/flitter/new', methods=['GET', 'POST'])
@@ -91,8 +92,8 @@ def new_post():
         return render_template('new_post.html', newpostform=newpostform, user=user)
 
 @app.route('/flitter/<username>')
-def user_posts(username=None):
-    # will have to change to username later
+@app.route('/flitter/<username>/<int:page>')
+def user_posts(username = None, page = 1):
     user = models.User.query.filter_by(username=username).first()
-    posts = user.posts.all()
+    posts = user.posts.order_by(models.Post.timestamp.desc()).paginate(page, 10, False)
     return render_template('show_posts.html', title = 'Home', user=user, posts=posts)

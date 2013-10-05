@@ -81,6 +81,12 @@ nav {
   font-style: italic;
 }
 
+.pagination {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
 /* New Post */
 .new-post {
   width: 50%;

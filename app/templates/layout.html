@@ -17,8 +17,10 @@
           <nav>
             <a class="brand" href="/">Flitter</a>
             <div class="user-nav">
-              {% if 'username' in session %}
+              {% if 'username' in session and user.username == session['username'] %}
                 <h4>{{ user.fullname }} ( <a href="{{ url_for('logout') }}">Log out</a> )</h4>
+              {% else %}
+                <h4>You're viewing {{ user.fullname }}'s wall</h4>
               {% endif %}
             </div>
           </nav>
