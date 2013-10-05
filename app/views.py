@@ -1,6 +1,7 @@
 import sqlite3
+import datetime
 from flask import render_template, redirect, url_for, request, g, flash, session
-from forms import SignupForm, SigninForm
+from forms import SignupForm, SigninForm, NewPost
 from app import app, db, models
 from models import db, User
 
@@ -62,10 +63,25 @@ def show_posts():
 
 @app.route('/flitter/new', methods=['GET', 'POST'])
 def new_post():
-    email = session['email']
-    user = models.User.query.filter_by(email=email).first()
-    return render_template('new_post.html', user=user)
+    newpostform = NewPost()
+
+    if request.method == 'POST':
+        email = session['email']
+        user = models.User.query.filter_by(email=email).first()
+        content = newpostform.content.data
+        now = datetime.datetime.now()
+        newpost = models.Post(content=content, timestamp=now, author=user)
+        db.session.add(newpost)
+        db.session.commit()
+        return redirect(url_for('show_posts'))
+    else:
+        email = session['email']
+        user = models.User.query.filter_by(email=email).first()
+        return render_template('new_post.html', newpostform=newpostform, user=user)
 
 @app.route('/user/<username>')
 def user_posts(username=None):
-    return render_template('show_posts.html', title = 'Home', user=username)
+    # will have to change to username later
+    user = models.User.query.filter_by(fullname=username).first()
+    posts = user.posts.all()
+    return render_template('show_posts.html', title = 'Home', user=user, posts=posts)

@@ -40,3 +40,14 @@ class SigninForm(Form):
     else:
       self.email.errors.append("Invalid e-mail or password")
       return False
+
+class NewPost(Form):
+  content = TextAreaField("Content",  [validators.Required("Please write a post.")])
+  submit = SubmitField("Create post")
+
+  def __init__(self, *args, **kwargs):
+    Form.__init__(self, *args, **kwargs)
+
+  def validate(self):
+    if not Form.validate(self):
+      return False
