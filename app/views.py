@@ -83,19 +83,18 @@ def new_post():
 @app.route('/flitter/<username>')
 @app.route('/flitter/<username>/<int:page>')
 def show_posts(username = None, page = 1):
+    if 'username' in session:
+        current_username = session['username']
+        current_user = models.User.query.filter_by(username = current_username).first()
+    else:
+        current_user = None
 
     user = models.User.query.filter_by(username=username).first()
     if user == None:
-        return render_template('error.html')
+        title = 'Error!'
+        return render_template('error.html', title = title, current_user = current_user, user = user)
     else:
         posts = user.posts.order_by(models.Post.timestamp.desc()).paginate(page, 10, False)
+        title = "%s's Posts" % user.fullname
+        return render_template('show_posts.html', title = title, current_user = current_user, user = user, posts = posts)
 
-        if 'username' in session and username == session['username']:
-            current_user = None
-        elif 'username' in session:
-            current_username = session['username']
-            current_user = models.User.query.filter_by(username = current_username).first()
-        else:
-            current_user = None
-
-        return render_template('show_posts.html', title = "%s's Posts" % user.fullname, current_user = current_user, user = user, posts = posts)
